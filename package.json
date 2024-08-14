@@ -8,8 +8,8 @@
     "check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
     "check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch",
     "migrations:generate": "drizzle-kit generate",
-    "migrations:apply:local": "wrangler d1 migrations apply tibani-link --local",
-    "migrations:apply:remote": "wrangler d1 migrations apply tibani-link --remote"
+    "migrations:apply:local": "wrangler d1 migrations apply nikkovote --local",
+    "migrations:apply:remote": "wrangler d1 migrations apply nikkovote --remote"
   },
   "devDependencies": {
     "@cloudflare/workers-types": "^4.20240806.0",
