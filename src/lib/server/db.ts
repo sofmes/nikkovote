@@ -1,15 +1,10 @@
-// lib/server/db/db-client.ts
-
 import { drizzle, DrizzleD1Database } from "drizzle-orm/d1";
 
 import * as schema from "./schema";
 import { eq } from "drizzle-orm";
 
-export const dbClient = (db: D1Database | undefined) => {
-    if (!db) {
-        return undefined;
-    }
-    return drizzle(db, { schema });
+export const getDataManager = (db: D1Database) => {
+    return new DataManager(drizzle(db, { schema }));
 };
 
 export interface VoteBox {
@@ -36,11 +31,16 @@ export interface VoteBoxWithPartialRelation extends VoteBox {
 export class VoteBoxDataManager {
     constructor(private db: DrizzleD1Database<typeof schema>) {}
 
-    async add(title: string, thumbnailUrl: string) {
-        await this.db.insert(schema.voteBox).values({
-            title,
-            thumbnailUrl
-        });
+    async add(title: string, thumbnailUrl: string): Promise<{ id: number }> {
+        return (
+            await this.db
+                .insert(schema.voteBox)
+                .values({
+                    title,
+                    thumbnailUrl
+                })
+                .returning({ id: schema.voteBox.id })
+        )[0];
     }
 
     async remove(id: number) {
