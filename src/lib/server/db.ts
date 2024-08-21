@@ -24,7 +24,7 @@ export interface Character {
     votes: Vote[];
 }
 
-export interface VoteBoxWithPartialRelation extends VoteBox {
+export interface VoteBoxWithPartialCharacters extends VoteBox {
     characters: Character[];
 }
 
@@ -116,9 +116,30 @@ export class DataManager {
         this.vote = new VoteDataManager(db);
     }
 
+    async fetchMany(page: number): Promise<VoteBoxWithPartialCharacters[]> {
+        return await this.db.query.voteBox.findMany({
+            offset: 10 * (page - 1),
+            limit: 10,
+            with: {
+                characters: {
+                    columns: {
+                        voteBoxId: false
+                    },
+                    with: {
+                        votes: {
+                            columns: {
+                                characterId: false
+                            }
+                        }
+                    }
+                }
+            }
+        });
+    }
+
     async fetchDetails(
         voteBoxId: number
-    ): Promise<VoteBoxWithPartialRelation | undefined> {
+    ): Promise<VoteBoxWithPartialCharacters | undefined> {
         return await this.db.query.voteBox.findFirst({
             where: eq(schema.voteBox.id, voteBoxId),
             with: {
