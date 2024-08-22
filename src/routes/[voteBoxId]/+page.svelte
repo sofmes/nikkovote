@@ -15,8 +15,21 @@
     {#each data.characters as character, i}
         <div>
             <header>{character.name} {i + 1}位</header>
-            <img src={character.thumbnailUrl} alt="{character.name}のロゴ" />
-            {character.votes}
+            <img
+                src={character.thumbnailUrl}
+                alt="{character.name}のイラスト"
+            />
+            {character.votes.length}票
+
+            <form action="/api/voteBox/{data.id}" method="post">
+                <input type="hidden" name="characterId" value={character.id} />
+                <input
+                    type="text"
+                    name="comment"
+                    placeholder="コメント欄（任意）"
+                />
+                <button type="submit">投票</button>
+            </form>
         </div>
     {/each}
 {:else}
