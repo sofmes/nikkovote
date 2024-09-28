@@ -24,7 +24,7 @@ export const load: PageServerLoad = async ({ request, platform }) => {
             id: voteBox.id,
             title: voteBox.title,
             thumbnailUrl: voteBox.thumbnailUrl,
-            ranking: [voteBox.characters.map((c) => c.name)]
+            ranking: voteBox.characters.map((c) => c.name)
         });
     }
 
