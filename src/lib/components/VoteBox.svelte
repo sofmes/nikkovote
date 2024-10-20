@@ -120,15 +120,6 @@
         cursor: pointer;
     }
 
-    .frame {
-        border: 3px outset;
-        padding: 5px;
-        border-radius: 20px;
-        font-size: 15px;
-        font-weight: bold;
-        color: white;
-        background-color: red;
-    }
     .group {
         display: flex;
     }
@@ -138,10 +129,6 @@
         width: 90%;
         border-radius: 10px;
         height: 30px;
-    }
-
-    .bs {
-        margin-bottom: 2px;
     }
 
     .kakutei {
