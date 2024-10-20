@@ -1,5 +1,5 @@
 <script lang="ts">
-    import VoteBox from "$lib/components/VoteBoxBase.svelte";
+    import VoteBoxResult from "$lib/components/VoteBoxResult.svelte";
     import type { PageData } from "./$types";
 
     export let data: PageData;
@@ -12,7 +12,8 @@
 
 {#if data && data.voteBoxes}
     {#each data.voteBoxes as voteBox}
-        <VoteBox
+        <VoteBoxResult
+            link="/{voteBox.id}"
             name={voteBox.title}
             ranking={voteBox.ranking}
             thumbnailUrl={voteBox.thumbnailUrl}
