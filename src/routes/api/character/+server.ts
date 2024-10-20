@@ -9,7 +9,7 @@ const voteBoxData = z.object({
 });
 
 export const POST: RequestHandler = async ({ request, platform }) => {
-    if (!platform) throw new Error("プラットフォームが定義されていません。")
+	if (!platform) throw new Error();
 	const dataManager = getDataManager(platform.env.DB);
 
 	const data = voteBoxData.parse(await request.json());

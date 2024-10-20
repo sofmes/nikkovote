@@ -1,5 +1,5 @@
 <script lang="ts">
-    import VoteBox from "$lib/components/VoteBox.svelte";
+    import VoteBox from "$lib/components/VoteBoxBase.svelte";
     import type { PageData } from "./$types";
 
     export let data: PageData;

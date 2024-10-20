@@ -1,4 +1,5 @@
 <script lang="ts">
+    import VoteBox from "$lib/components/VoteBox.svelte";
     import type { PageData } from "./$types";
 
     export let data: PageData;
@@ -9,28 +10,24 @@
             return 0;
         });
     }
+
+    async function addVote(characterId: number, comment: string | null) {
+        const vote = { characterId, comment };
+        await fetch(`/api/voteBox/${data.id}`, {
+            method: "POST",
+            body: JSON.stringify(vote)
+        });
+    }
 </script>
 
 {#if data.characters}
-    {#each data.characters as character, i}
-        <div>
-            <header>{character.name} {i + 1}位</header>
-            <img
-                src={character.thumbnailUrl}
-                alt="{character.name}のイラスト"
-            />
-            {character.votes.length}票
-
-            <form action="/api/voteBox/{data.id}" method="post">
-                <input type="hidden" name="characterId" value={character.id} />
-                <input
-                    type="text"
-                    name="comment"
-                    placeholder="コメント欄（任意）"
-                />
-                <button type="submit">投票</button>
-            </form>
-        </div>
+    {#each data.characters as character}
+        <VoteBox
+            name={character.name}
+            thumbnailUrl={character.thumbnailUrl}
+            votes={character.votes}
+            addVote={(comment) => addVote(character.id, comment || null)}
+        />
     {/each}
 {:else}
     <p>⚠️ データが見つかりませんでした。</p>
