@@ -65,9 +65,9 @@
 
     .img {
         border: 2px solid gray;
-        max-width: 100%;
-        height: auto;
-        width: 100%;
+        margin: 0 auto;
+        max-height: 70vh;
+        width: auto;
         display: block;
         border-radius: 10px;
         position: relative;
