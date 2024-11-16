@@ -26,21 +26,31 @@
 
 <div class="container">
     <h1>{name}<span>{count}票</span></h1>
-    <img src={thumbnailUrl} alt="{name}のイラスト" class="img" />
 
-    <div class="comments">
+    <div
+        class="mx-auto ralative img overflow-hidden"
+        style:background-image="url({thumbnailUrl})"
+        style:background-size="contain"
+        style:background-repeat="no-repeat"
+        style:background-position="center"
+        style:padding="auto 0"
+        style:height="60vh"
+    >
+        <div class="absolute top-0 left-0">あいうえお</div>
         {#key count}
             {#each votes.filter((v) => v.comment != null) as vote}
                 <div
-                    class="comment"
-                    style:top="{Math.floor(Math.random() * 68) + 10}%"
-                    style:animation-duration="{5 + Math.random() * 10}s;"
+                    class="absolute comment"
+                    style:top="{Math.floor(Math.random() * 100)}%"
+                    style:animation-duration="{5 + Math.random() * 10}s"
                 >
                     {vote.comment}
                 </div>
             {/each}
         {/key}
     </div>
+
+    <div class="comments"></div>
 
     <div class="group">
         <input
@@ -66,7 +76,7 @@
     .img {
         border: 2px solid gray;
         margin: 0 auto;
-        max-height: 70vh;
+        height: 60vh;
         width: auto;
         display: block;
         border-radius: 10px;
@@ -78,30 +88,27 @@
         position: absolute;
         top: 0;
         left: 0;
-        width: 100%;
-        height: 100%;
+        width: auto;
+        height: 60vh;
         pointer-events: none;
         overflow: hidden;
         z-index: 2;
     }
 
     .comment {
-        position: absolute;
-        color: black;
         font-size: 25px;
-        padding: 5px;
-        white-space: nowrap;
-        z-index: 10;
+        z-index: 20;
+        text-wrap: nowrap;
         animation: flow linear infinite;
-        animation-duration: 4s;
+        animation-duration: 2s;
     }
 
     @keyframes flow {
         from {
-            transform: translateX(400%);
+            left: 110%;
         }
         to {
-            transform: translateX(-100%);
+            left: -10%;
         }
     }
 
